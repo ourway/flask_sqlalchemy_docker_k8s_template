@@ -13,6 +13,7 @@ psycopg2 = "*"
 pyyaml = "*"
 gunicorn = "*"
 python-dotenv = "*"
+alembic = "*"
 
 [requires]
 python_version = "3.7"

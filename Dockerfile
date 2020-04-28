@@ -8,8 +8,10 @@ ARG VERSION
 ENV VERSION=${VERSION}
 
 
+
 FROM base AS local
 WORKDIR /app
 
+
 EXPOSE 7575
-CMD ["flask", "run"]
+CMD ["./start.sh"]
