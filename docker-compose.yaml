@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+    postgres:
+        image: postgres:12
+        restart: always
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PORT: ${POSTGRES_PORT}
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_PASSWORD: ${POSTGRES_SECRET_PASSWORD}
+        ports:
+            - 54321:54321
+        networks:
+            - sample-app-net
+        volumes:
+            - db-data:/var/lib/postgresql/data
+
+    web:
+        build:
+            context: .
+            target: local
+            args:
+                VERSION: ${VERSION}
+        ports:
+            - 7575:7575
+        networks:
+            - sample-app-net
+        volumes:
+            - .:${HOME}/app
+        depends_on:
+            - postgres
+
+volumes:
+    db-data:
+        driver: local
+
+networks:
+    sample-app-net:
+        internal: true
