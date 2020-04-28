@@ -10,9 +10,7 @@ services:
             POSTGRES_DB: ${POSTGRES_DB}
             POSTGRES_PASSWORD: ${POSTGRES_SECRET_PASSWORD}
         ports:
-            - 54321:54321
-        networks:
-            - sample-app-net
+            - "54321:54321"
         volumes:
             - db-data:/var/lib/postgresql/data
 
@@ -23,18 +21,12 @@ services:
             args:
                 VERSION: ${VERSION}
         ports:
-            - 7575:7575
-        networks:
-            - sample-app-net
+            - "7575:7575"
         volumes:
-            - .:${HOME}/app
+            - .:/app
         depends_on:
             - postgres
 
 volumes:
     db-data:
         driver: local
-
-networks:
-    sample-app-net:
-        internal: true
